@@ -4,6 +4,12 @@ class HomeIndicesTest < ApplicationSystemTestCase
   test "visiting home/index" do
     visit '/home/index'
     sleep 2
+    visit '/about'
+    sleep 2
+    visit '/blog'
+    sleep 2
+    visit '/contact'
+    sleep 2
     visit '/'
     sleep 2
     
