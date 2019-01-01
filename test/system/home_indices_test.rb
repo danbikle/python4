@@ -3,13 +3,16 @@ require "application_system_test_case"
 class HomeIndicesTest < ApplicationSystemTestCase
   test "visiting home/index" do
     visit '/home/index'
-    sleep 2
+    sleep 1
     visit '/about'
-    sleep 2
+    sleep 1
     visit '/blog'
-    sleep 2
+    sleep 1
     visit '/contact'
-    sleep 2
+    sleep 1
+    visit '/cclasses/index'
+    sleep 1
+    sleep 1
     visit '/'
     sleep 2
     
