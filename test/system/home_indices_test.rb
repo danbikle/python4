@@ -12,9 +12,10 @@ class HomeIndicesTest < ApplicationSystemTestCase
     sleep 1
     visit '/cclasses/index'
     sleep 1
-    sleep 1
+    visit '/cclasses/class01'
+    sleep 3
     visit '/'
-    sleep 2
+    sleep 1
     
     assert_selector "h1", text: "Home#index"
   end
