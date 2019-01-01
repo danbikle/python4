@@ -17,6 +17,10 @@ I should lock some versions in the Gemfile
 I should add haml , mini-racer to Gemfile
 
 I should rails g controller home index
+I should rails g controller about index
+I should rails g controller blog index
+I should rails g controller contact index
+I should rails g controller cclasses index
 
 I should install a Procfile
 
@@ -29,14 +33,19 @@ I should rails test:system
 I should git init; git add .; git ciam hi
 
 I should create bitbucket repo:git@bitbucket.org:bikle/python4
-I should create github repo:git@github.com:bikle/python4
+I should create github    repo:git@github.com:bikle/python4
 
-I should create python4@usa.com email
 I should create heroku account
 
 I should install heroku cli
 
-I should manage python4.us to point it at python4.herokuapp.com
+I should rsync files from py4.us into app/views/layouts/
+
+I should borrow styling from rails4.us
+
+I should not use the bootstrap css styling from py4.us
+
+I should manage python4.us to point it at py44.herokuapp.com
 
 I should see if I can point it at an ip add
 
