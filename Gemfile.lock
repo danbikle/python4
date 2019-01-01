@@ -205,18 +205,18 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  byebug
-  capybara (>= 2.15)
-  chromedriver-helper
+  byebug (= 10.0.2)
+  capybara (= 3.12.0)
+  chromedriver-helper (= 2.1.0)
   haml (= 5.0.4)
   haml-rails (= 1.0.0)
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
-  mini_racer
-  puma (~> 3.11)
-  rails (~> 5.2.2)
+  mini_racer (= 0.2.4)
+  puma (= 3.12.0)
+  rails (= 5.2.2)
   sass-rails (~> 5.0)
-  selenium-webdriver
+  selenium-webdriver (= 3.141.0)
   spring
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)

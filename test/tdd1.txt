@@ -1,0 +1,43 @@
+~/tdd1.txt
+
+I should install rbenv
+
+I should install ruby 2.5.3
+
+I should install rails 5.2.2
+
+I should register python4.us
+
+I should rails new python4 rails new python4 --skip-bootsnap --skip-coffee --skip-action-mailer --skip-active-record --skip-active-storage
+
+I should bundle package to work-around heroku-rubygems-bug
+
+I should lock some versions in the Gemfile
+
+I should add haml , mini-racer to Gemfile
+
+I should rails g controller home index
+
+I should install a Procfile
+
+I should rails g system_test home
+
+I should vi test/system/homes_test.rb
+
+I should rails test:system
+
+I should git init; git add .; git ciam hi
+
+I should create bitbucket repo:git@bitbucket.org:bikle/python4
+I should create github repo:git@github.com:bikle/python4
+
+I should create python4@usa.com email
+I should create heroku account
+
+I should install heroku cli
+
+I should manage python4.us to point it at python4.herokuapp.com
+
+I should see if I can point it at an ip add
+
+
