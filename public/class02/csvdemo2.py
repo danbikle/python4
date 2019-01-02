@@ -16,7 +16,7 @@ import csv
 import io
 import requests
 
-csv_req = requests.get('http://py4.us/some.csv')
+csv_req = requests.get('https://py44.herokuapp.com/some.csv')
 s_io    = io.StringIO(csv_req.text)
 csv_l   = [row for row in csv.reader(s_io)]
 print(csv_l)

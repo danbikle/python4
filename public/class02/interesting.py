@@ -4,11 +4,11 @@ interesting.py
 This script shows some syntax-answers for the Class02 'Interesting' Lab.
 
 Ref:
-http://py4.us/cclasses/class02#other
+https://py44.herokuapp.com/cclasses/class02#other
 
 Demo:
-git clone https://github.com/danbikle/py4us
-cd py4us/public/class02/
+git clone https://github.com/danbikle/python4
+cd python4/public/class02/
 ~/anaconda3/bin/python interesting.py
 """
 
@@ -102,17 +102,17 @@ sr6 = sr0.apply(np.sqrt)
 # With one line of syntax, square all numbers in a List
 list2 = np.square(list1).tolist()
 
-# With one line of syntax, read py4.us/gspc.csv into a DataFrame
-gspc_df = pd.read_csv('http://py4.us/gspc.csv')
+# With one line of syntax, read py44.herokuapp.com/gspc.csv into a DataFrame
+gspc_df = pd.read_csv('https://py44.herokuapp.com/gspc.csv')
 # Use the CSV module to read a CSV file into a list of lists
 import csv
 with open('some.csv') as f:
   csv_l = [row for row in csv.reader(f)]
 
-# Use modules: CSV, io, and Requests to read py4.us/gspc.csv into a List of Lists
+# Use modules: CSV, io, and Requests to read py44.herokuapp.com/gspc.csv into a List of Lists
 import io
 import requests
-csv_req = requests.get('http://py4.us/gspc.csv')
+csv_req = requests.get('https://py44.herokuapp.com/gspc.csv')
 s_io    = io.StringIO(csv_req.text)
 csv_l   = [row for row in csv.reader(s_io)]
 
