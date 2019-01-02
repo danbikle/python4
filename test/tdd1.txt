@@ -70,4 +70,6 @@ I should remove the learn-more link
 
 I should hard-code https://py44.herokuapp.com at various places.
 
+I should replace links to ml4.us to ml4.herokuapp.com
+
 

@@ -40,24 +40,24 @@ class Demo15(fr.Resource):
     # I should get prices for tkr:
     prices0_df = pd.read_csv('http://tkrprice.herokuapp.com/static/CSV/history/'+tkr+'.csv')
 
-    # See diagram: py4.us/cclasses/class04#r2
+    # See diagram: python4.us/cclasses/class04#r2
     prices1_df = prices0_df[['Date','Close']].sort_values(['Date'])
     prices1_df.columns = ['Date','Price']
     
     # Create feat_df from prices1_df, pctlead, pctlag1    
-    # See diagram: py4.us/cclasses/class04#r2
+    # See diagram: python4.us/cclasses/class04#r2
     feat_df = prices1_df.copy()
     feat_df['pctlead'] = (100.0 * (feat_df.Price.shift(-1) - feat_df.Price) / feat_df.Price).fillna(0)
     feat_df['pctlag1'] = feat_df.pctlead.shift(1).fillna(0)
 
     # I should copy test_yr-observations (about 252) from feat_df into test_yr_df.
-    # See diagram: py4.us/cclasses/class04#r2
+    # See diagram: python4.us/cclasses/class04#r2
     test_start_sr = (feat_df.Date > yr2predict)
     test_end_sr   = (feat_df.Date &lt; str(int(yr2predict)+1))
     test_yr_df    = feat_df.copy()[(test_start_sr & test_end_sr)]
 
     # I should copy train_i-years of observations before test_yr from feat_df into train_df
-    # See diagram: py4.us/cclasses/class04#r2
+    # See diagram: python4.us/cclasses/class04#r2
     train_i        = yrs2train
     train_end_sr   = (feat_df.Date &lt; yr2predict)
     train_start_i  = int(yr2predict) - train_i
@@ -79,7 +79,7 @@ class Demo15(fr.Resource):
     # I should collect predictions for yr2predict
     xtest_a = np.array(test_yr_df.pctlag1).reshape(-1, 1)
     predictions_a = linr_model.predict(xtest_a)
-    # See diagram: py4.us/cclasses/class04#r2
+    # See diagram: python4.us/cclasses/class04#r2
     predictions_l = predictions_a.tolist()
     # I should copy test_yr_df to predictions_df
     predictions_df = test_yr_df.copy()
