@@ -66,4 +66,8 @@ I should copy various files from py4/public/
 
 I should study the div elements in layouts files and maybe remove some no longer needed for bootstrap styling.
 
+I should remove the learn-more link
+
+I should hard-code https://py44.herokuapp.com at various places.
+
 
