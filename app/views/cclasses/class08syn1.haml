@@ -1,0 +1,304 @@
+%h2 Class08 Answer:
+%h2 Study syntax in the script.
+%p I found a listing of the syntax at this URL:
+%p
+  %a(href='https://github.com/tensorflow/tensorflow/blob/master/tensorflow/examples/tutorials/word2vec/word2vec_basic.py' target='x')
+    https://github.com/tensorflow/tensorflow/blob/master/tensorflow/examples/tutorials/word2vec/word2vec_basic.py
+
+%p As of today, 2017-11-13, the above script is 277 lines long.
+%p I consider it readable and easy to understand.
+
+%p An immediate problem I see at the top of the script is a very poor description:
+.syntax
+  %pre
+    %code """Basic word2vec example."""
+
+%p The author gave us 277 lines of syntax but only one line of description.
+
+%p I interpret this to be a sign of laziness.
+
+%p Near the top of the script I see this syntax:
+
+.syntax
+  %pre
+    %code.python
+      from __future__ import absolute_import
+      from __future__ import division
+      from __future__ import print_function
+
+%p The above syntax is an attempt to make the script runnable from both Python2 and Python3.
+
+%p
+  %a(href='https://www.google.com/search?q=In+python+what+does+dunder+future+do?' target='x')
+    https://www.google.com/search?q=In+python+what+does+dunder+future+do?
+
+%p Next, I see some common imports:
+
+.syntax
+  %pre
+    %code.python
+      import collections
+      import math
+      import os
+      import random
+      import zipfile
+      import numpy as np
+
+%p Syntax which uses the collections-package appears twice, later in the script.
+
+%p A URL to information about the collections-package is listed below:
+
+%p
+  %a(href='https://docs.python.org/3/library/collections.html' target='x')
+    https://docs.python.org/3/library/collections.html
+%p The collections-package gives me the collections.Counter() method.
+
+%p I can use collections.Counter() to look for groups of numbers, or words, in a list.
+
+%p For each group it finds, it will measure the group size.
+
+%p I list a demo below:
+
+.syntax
+  %pre
+    %code.python
+      dan@a78:~/py4 $ python
+      Python 3.6.1 |Anaconda 4.4.0 (64-bit)| (default, May 11 2017, 13:09:58) 
+      [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)] on linux
+      Type "help", "copyright", "credits" or "license" for more information.
+      >>> import collections
+      >>> collections.Counter([1,1,1,2,2,3])
+      Counter({1: 3, 2: 2, 3: 1})
+      >>> 
+
+%p I can use collections.deque() to implement a queue:
+    
+.syntax
+  %pre
+    =render 'class08syn1a2'
+
+%p The author of word2vec_basic.py divides the script into 6 steps:
+
+.syntax
+  %pre
+    =render 'class08syn1a'
+
+%p The first step depends on the urllib package to download the file listed below:
+
+%p
+  %a(href='http://mattmahoney.net/dc/text8.zip' target='x')
+    http://mattmahoney.net/dc/text8.zip
+
+%p The downloaded file looks like this:
+
+.syntax
+  %pre
+    =render 'class08syn1b'
+
+%hr/
+%p The next step, Step 2, starts with a comment:
+.syntax
+  %pre
+    %code.python # Step 2: Build the dictionary and replace rare words with UNK token.
+
+%p An obvious question is then, "What is the dictionary?"
+
+%p I can see that Step 2 depends on a function-call to build_dataset().
+
+%p With the above question in mind, I studied inputs to the call and outputs of the call using pdb.set_trace():
+
+.syntax
+  %pre
+    =render 'class08syn1c'
+
+%p I can see above that build_dataset() is fed two inputs.
+%p First is a list of 17,005,207 words called vocabulary.
+%p Next is vocabulary_size which is 50,000 and might be intended to act as a cluster controller.
+%p Perhaps the intent is to create 50,000 clusters of words.
+
+%p Next, I studied a variable named, "data" which is the first output of build_dataset():
+
+.syntax
+  %pre
+    =render 'class08syn1d'
+
+%p It appears that "data" is a simple list of integers.  The length of the list is the same as the length of the list called: "vocabulary".
+
+%p Since the two lists are the same length, I could match them element to element if I want.
+
+%p Also I see that many of the integers in "data" repeat and that I have 50,000 unique integers.
+
+%p This might be similar to the distribution of words in the list: "vocabulary".
+
+%p Perhaps later, I will see why this list named "data" is useful.
+
+%p Next, I studied a variable named, "count" which is the second output of build_dataset():
+
+.syntax
+  %pre
+    =render 'class08syn1e'
+
+%p I see that "count" is a simple list of 50,000 tuples.
+
+%p Each tuple assigns an integer to word.
+
+%p My guess is that each integer is a count of each word in vocabulary.
+
+%p Based on that guess, perhaps the most frequent word is 'the' and it has appeared 1,061,396 times in vocabulary.
+
+%p Next, I studied a variable named, "dictionary" which is the third output of build_dataset().
+%p I assume this is the dictionary referred to in the Step-2-comment.
+
+%p I studied "dictionary" while I had the debugger prompt:
+
+.syntax
+  %pre
+    =render 'class08syn1f'
+
+%p I see above that dictionary is a Python dict with 50,000 pairs.
+%p Each key is a word which points to an integer, perhaps unique.
+
+%p Next, I studied a variable named, "reverse_dictionary" which is the fourth, and last, output of build_dataset():
+
+.syntax
+  %pre
+    =render 'class08syn1g'
+
+%p The variable, "reverse_dictionary" is aptly named.  It is the same as "dictionary" but with keys and values reversed.  So obviously, the integers in "dictionary" are unique.
+
+%p To summarize my study of build_dataset() I list my observations:
+
+%ul
+  %li Inputs:
+  %li
+    %ul
+      %li vocabulary:
+      %li A Python list of 17,005,207 words
+      %li vocabulary_size:
+      %li An integer: 50,000 [Perhaps a cluster controller?]
+  %li Outputs:
+  %li
+    %ul
+      %li data:
+      %li A Python list of 17,005,207 integers
+      %li The count of unique integers is 50,000
+      %li count:
+      %li A Python list of 50,000 tuples
+      %li Each tuple matches a word to its frequency count.
+      %li Most common word is: 'the'
+      %li dictionary:
+      %li A Python dict of 50,000 words acting as keys.
+      %li Each word points to an integer.
+      %li reverse_dictionary:
+      %li A simple reverse of "dictionary"
+
+
+%hr/
+%p The next step, Step 3, starts with a comment:
+
+.syntax
+  %pre
+    %code.python # Step 3: Function to generate a training batch for the skip-gram model.
+
+%p I can see that Step 3 depends on a function-call to generate_batch().
+
+%p I studied inputs to the call:
+
+.syntax
+  %pre
+    %code.python batch, labels = generate_batch(batch_size=8, num_skips=2, skip_window=1)
+
+%p Obviously, the only inputs are three integers.
+
+%p The above comment says: "Function to generate a training batch"
+
+%p That comment suggests to me that generate_batch() is interacting with data which is not passed in as a parameter.
+
+%p Also, the words: "training batch" and variable "labels" suggest that the author intends to feed batch and labels to a machine learning classification algorithm.
+
+%p After I study generate_batch(), I see it interacts with "data" which is the first output of build_dataset().
+
+%p Remember that "data" is a Python list of 17,005,207 integers.
+
+%p Also generate_batch() interacts with a global-integer named "data_index".
+
+%p Each time I call generate_batch(), data_index will change depending on some intricate logic.
+
+%p Using pdb.set_trace(), I studied data_index and outputs of generate_batch():
+
+.syntax
+  %pre
+    =render 'class08syn1h'
+
+%p So the first output, "batch", is just a simple NumPy Array of 8 integers.
+%p The second output, "labels", is also a NumPy Array of 8 integers but with a shape of (8,1).
+
+%p Both batch and labels are integer arrays; this strengthens my observation that batch and labels will be fed to a machine learning algorithm.
+
+%p After generate_batch() fills "batch" and "labels", the script runs some syntax to help me visualize interaction between batch, labels, and reverse_dictionary:
+
+
+.syntax
+  %pre
+    =render 'class08syn1i'
+    
+%p I see 8 outputs from a loop; and I ignore the integers.
+%p Each output shows a word on the left matched with a word on the right.
+%p Each word on the left has only two matches.
+
+%p The visualization shows that the script is forming relationships between a word and two other words.
+
+%p Also the visualization shows that the author has a figured out a way to bridge words and numbers.
+
+%p My human brain understands the words.
+
+%p A machine learning classification algorithm will learn from the numbers.
+
+%p If you want a deeper understanding of the intent behind generate_batch(), read the page below:
+
+%p
+  %a(href='http://mccormickml.com/2016/04/19/word2vec-tutorial-the-skip-gram-model' target='x')
+    http://mccormickml.com/2016/04/19/word2vec-tutorial-the-skip-gram-model
+
+%p I called generate_batch() twice too better understand how it changes the global integer: "data_index":
+
+.syntax
+  %pre
+    =render 'class08syn1k'
+
+%p The above output tells me that generate_batch(batch_size=8, num_skips=2, skip_window=1) will usually increment "data_index" by 4.
+
+%p Next, I experimented with generate_batch() to see how outputs would change:
+
+.syntax
+  %pre
+    =render 'class08syn1m'
+
+%p The above output tells me that parameter-value: "skip_window=2" specifies a count of two words to the left and two words to the right of each batch-word.
+
+%p Put another way, "skip_window=2" corresponds to window size of two discussed in the page below:
+
+%p
+  %a(href='http://mccormickml.com/2016/04/19/word2vec-tutorial-the-skip-gram-model' target='x')
+    http://mccormickml.com/2016/04/19/word2vec-tutorial-the-skip-gram-model
+
+%p During my study of generate_batch() I saw that generate_batch() is called immediately after it is defined.
+
+%p The author probably did this to help us understand the mechanics of generate_batch().
+
+%p The author actually uses generate_batch() inside of what he calls:
+%p "# Step 4: Build and train a skip-gram model."
+
+%p I set a break-point near that call to see it happen:
+
+.syntax
+  %pre
+    =render 'class08syn1n'
+
+%p I see that the only difference between the two calls is that the important-call uses a batch_size of 128 instead of 8.
+
+%hr/
+
+%p
+  %a(href='class08#lab')
+    Class08

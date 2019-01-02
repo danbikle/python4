@@ -1,0 +1,328 @@
+%h1 Class04
+%p
+  In Class04 we work with Flask-RESTul.
+
+%h2#uc Use Cases: Time Series Prediction Recipes
+
+%hr/
+
+%h2#r1 Recipe 1: "Price versus Date Regression"
+
+%p Main idea:
+%ul
+  %li Fit a straight line through a time-series of prices.
+  %li Use the line to predict future prices from future dates.
+
+%p Ingredients:
+%ul
+  %li A list of dates and prices (Default: S&P500, Yahoo might work)
+  %li
+    %a(href='http://ml4.us/csv/GSPC.csv' target='x')
+      http://ml4.us/csv/GSPC.csv
+  %li A start-date and end-date            (From end-user)
+  %li A prediction-date after the end-date (From end-user)
+  
+%p Expected Result:
+%ul
+  %li One prediction of a price at prediction-date
+
+%p Steps:
+%ul
+  %li Get sorted list of dates and prices into prices1_df (Yahoo might work)
+  %li
+    %img(src='/class04/prices1_df2.png')
+  %li Get start_date, end_date, and prediction_date (From end-user)
+  %li Get list of dates and prices into prices2_df between start_date and end_date 
+  %li
+    %img(src='/class04/prices2_df2.png')
+  %li
+    Create list of integers from prices2_df-dates:
+    %ul
+      %li 0 (or 1) might correspond to earliest date
+  %li
+    %img(src='/class04/dates2int2.png')
+  %li Declare that the list of integers to be "X"
+  %li Declare that the corresponding prices be "y"
+  %li
+    %img(src='/class04/yvsx2.png')
+  %li
+    Create a Linear Regression model from a suitable API:
+    %ul
+      %li my favorite: Python sklearn.linear_model.LinearRegression
+      %li R has glm()
+  %li Use model to "fit" straight line to X and y data
+  %li
+    %img(src='/class04/fittedline2.png')
+  %li
+    Calculate integer which corresponds to prediction_date:
+    %ul
+      %li Integer is number of days prediction_date is after start_date
+  %li Use the straight line to predict price from prediction_date-integer
+  %li
+    %img(src='/class04/predictedprice2.png')
+
+%hr/
+%h2#r2 Recipe 2: "Pct-Lead versus Pct-Lag Regression"
+
+%p Main idea:
+%ul
+  %li Build a scatter-plot of Pct-Lead versus Pct-Lag observations
+  %li Fit a straight line through the scatter-plot
+  %li Use the line to predict Pct-Lead from Pct-Lag
+  %li Collect many predictions for many previous years
+  %li Report on accuracy and effectiveness of the many predictions
+  %li Decide if I should trust Pct-Lead-prediction for today
+  %li If yes, predict Pct-Lead from Pct-Lag; then act on prediction
+  %li
+    %img(src='/class04/scatter2.png')
+%p Ingredients:
+%ul
+  %li A list of dates and prices (Default: S&P500, Yahoo might work)
+  %li
+    %a(href='http://ml4.us/csv/GSPC.csv' target='x')
+      http://ml4.us/csv/GSPC.csv
+  %li A list of years to test (Default: [2010,2011,2012,2013,2014,2015,2016,2017]) 
+  %li Integer number of years to learn from for each test-year (Default: 25)
+
+
+%p Steps:
+%ul
+  %li Get sorted list of dates and prices into prices1_df
+  %li
+    %img(src='/class04/prices1_df2.png')
+  %li Get list of years to test 
+  %li
+    Get Integer number of years to learn from for each test-year:
+    %br/
+    call it: train_i
+  %li
+    Generate pctlead from each price:
+    %pre
+      %code.python pctlead = 100*(next_price - price)/price
+  %li
+    Generate pctlag1 from each price:
+    %br/
+    pctlag1 is pctlead, shifted forward in time once:
+    %br/
+    [Yesterday's pctlead is today's pctlag1]
+    %br/
+    Alternative expression:
+    %pre
+      %code.python pctlag1 = 100*(price - previous_price)/previous_price
+  %li Create feat_df from prices1_df, pctlead, pctlag1
+  %li
+    %img(src='/class04/feat5.png')
+
+  %li
+    For each test_yr, Steps:
+    %ul
+      %li copy test_yr-observations (about 252) from feat_df into test_yr_df
+      %li Declare x_test to be test_yr_df.pctlag1
+      %li copy train_i-years of observations before test_yr from feat_df into train_df
+      %li
+        %img(src='/class04/train1.png')
+      %li Declare x_train to be train_df.pctlag1
+      %li Declare y_train to be train_df.pctlead
+      %li Create a Linear Regression model
+      %li Use model to "fit" straight line to x_train and y_train
+      %li Use the straight line to predict pctlead for each x_test
+      %li Copy test_yr_df and predicted pctlead into predictions_df
+      %li
+        %img(src='/class04/pred3.png')
+
+
+%p Reporting:
+%p Use predictions_df.prediction and predictions_df.pctlead to calculate:
+%ul
+  %li Accuracy (How often the sign of the prediction is True)
+  %li Accuracy above 55% is good
+  %li
+    Effectiveness:
+    %ul
+      %li Sum gain of "up"   predictions
+      %li Sum gain of "down" predictions
+  %li Compare Accuracy and Effectiveness to Accuracy and Effectiveness of "Long-Only" model
+
+%h2#p1 Lab Problems:
+%ul
+  %li Ensure that you are running the correct Training Environment(ub16_2018_0109.ova).
+  %li
+    %a(href='/cclasses/class04ub16') Answer
+  %li Q: In the above Environment, which languages should be available?
+  %li Q: In the above Environment, do you see Anaconda Python?
+  %li Q: In the above Environment, which version of Linux do you see?
+  %li
+    %hr/
+
+  %li Ensure that you are running Anaconda Python.
+  %li
+    %a(href='/cclasses/class04ana1') Answer
+  %li Q: In English, summarize Anaconda Python installation.
+  %li Q: What are typical problems during Anaconda Python installation?
+  %li Q: Why is Anaconda Python good?
+  %li Q: Why might Anaconda Python be bad?
+  %li
+    %hr/
+  
+  %li Install flask-restful from conda-forge.
+  %li
+    %a(href='/cclasses/class04in1') Answer
+  %li Q: What is flask-restful?
+  %li Q: What is conda-forge?
+  %li Q: Which shell command do I use to install a package into my Anaconda installation?
+  %li Q: Which shell command do I use to install a package into a plain Python installation?
+  %li Q: How to list current packages in my Anaconda installation?
+  %li
+    %hr/
+
+  %li Create a folder to hold some future Python scripts.
+  %li
+    %a(href='/cclasses/class04mk') Answer
+  %li Create a folder to hold static JSON files.
+  %li
+    %a(href='/cclasses/class04mkj') Answer
+  %li Write a script which serves static JSON files.
+  %li
+    %a(href='/cclasses/class04s10') Answer
+  %li Run the script and debug the problem.
+  %li
+    %a(href='/cclasses/class04s10b') Answer
+  %li Q: Describe how Flask-RESTful serves static JSON files.
+  %li Q: From last week, describe how Flask serves static HTML files.
+  %li Q: How do I ask Flask-RESTful for a JSON file with a shell command?
+  %li Q: What happens if I ask for a file which does not exist?
+  %li
+    %hr/
+
+  %li Write a script which serves JSON generated from Python.
+  %li
+    %a(href='/cclasses/class04s11a') Answer
+  %li Q: How is Python generated JSON created and served?
+  %li Q: What type of object should a get() method return?
+  %li Q: Why is get() called get()?
+  %li Q: How to run the Flask server so it responds to changes in underlying script?
+  %li Q: In Web Technology, what is routing?
+  %li Q: In my Flask-app, how do I declare routes?
+  %li
+    %hr/
+    
+  %li Write a script which serves JSON affected by URL-path-tokens.
+  %li
+    %a(href='/cclasses/class04s12a') Answer
+  %li Q: What is a URL-path-token?
+  %li Q: What is a Resource?
+  %li Q: How does a Resource relate to a URL-path-token?
+  %li Q: How do I force a Flask-RESTful app to respond to a URL-path-token?
+  %li Q: How do I force a Flask app to respond to a URL-path-token?
+  %li Q: How do I constrain a URL-path-token?
+  %li
+    %hr/
+
+  %li Write a script which serves JSON affected by URL-path-tokens and a URL-parameter.
+  %li
+    %a(href='/cclasses/class04s13a') Answer
+  %li Q: What is a URL-parameter?
+  %li Q: Why use a URL-parameter?
+  %li Q: How does a URL-parameter compare to a URL-path-token?
+  %li Q: How do I force a Flask-RESTful app to respond to a URL-parameter?
+  %li Q: Given a choice between URL-parameter and URL-path-token, which should I use?
+  %li
+    %hr/
+    
+  %li Write a script which serves JSON affected by URL-path-tokens and sklearn LinearRegression.
+  %li
+    %a(href='/cclasses/class04s14a') Answer
+  %li Q: Does the above script implement Recipe 1 above?
+  %li Q: What is a Pandas DataFrame?
+  %li Q: How to fill a DataFrame from a CSV file on the web?
+  %li Q: How to extract a Pandas Series from a Pandas DataFrame?
+  %li Q: Why extract a Series from a Pandas DataFrame?
+  %li Q: How to extract a narrow DataFrame from a wide DataFrame?
+  %li Q: How to sort rows of a DataFrame?
+  %li Q: How to get max value of a Series?
+  %li Q: Aside from max(), what other aggregation methods are available?
+  %li Q: How to convert a String to a DateTime object?
+  %li Q: Given '2017-01-28' how to get date 4321 days ago?
+  %li Q: How to convert a DateTime object to a String?
+  %li Q: Given a DataFrame with a date column, how to select rows between two dates?
+  %li Q: Given a Series of Integers, how to convert them to Float?
+  %li Q: Given a Series of Strings, how to convert them to DateTime?
+  %li Q: What shape will this array have: array1 = np.array([1,2,3])?
+  %li Q: How to change array1 so it has shape: 1 row , 3 columns?
+  %li Q: How to change array1 so it has shape: 3 rows , 1 column?
+  %li Q: If I fit a line to p1 = [x1, y1], p2 = [x2, y2], what shape should X be?
+  %li Q: If I collect 100 observations of weather into X, how many rows should it have?
+  %li Q: If I collect 100 observations of weather into X, how many columns should it have?
+  %li Q: What is a scatter-plot?
+  %li Q: If I fit a line to a scatter-plot what does that mean?
+  %li Q: How to find the number of days between two dates?
+  %li
+    %hr/
+    
+  %li Implement Recipe 2 described above.
+  %li
+    %a(href='/cclasses/class04s15a') Partial Answer
+  %li Q: Why does the above script only partially implement Recipe 2 described above?
+
+  %li Q: What does this syntax do: feat_df.Price.shift(-1) ?
+  %li
+    %pre feat_df.Price.shift(-1) ?
+    
+  %li Q: What does this syntax do: .fillna(0) ?
+  %li Q: What does this syntax do:
+  %li
+    %pre test_start_sr = (feat_df.Date > yr2predict)
+  %li Q: What does this syntax do:
+  %li
+    %pre test_end_sr   = (feat_df.Date < str(int(yr2predict)+1))
+  %li Q: What does this syntax do:
+  %li
+    %pre test_yr_df    = feat_df.copy()[(test_start_sr & test_end_sr)]
+
+  %li Q: Which should have more rows, test_yr_df or train_df?
+
+  %li Q: What does this syntax do:
+  %li
+    %pre np.array(x_train).reshape(-1, 1)
+
+  %li Q: Does Recipe 1 do something similar?
+
+  %li Q: If, yes how does Recipe 1 do it differently?
+
+  %li Q: How many predictions are generated by this call:
+  %li
+    %pre predictions_a = linr_model.predict(xtest_a)
+
+  %li Q: What is pctlead?
+
+  %li Q: How does Effectiveness depend on pctlead?
+
+  %li Q: What is Accuracy?
+
+  %li Q: How does Accuracy depend on pctlead?
+
+  %li Q: What does this syntax do:
+  %li
+    %pre np.sign(predictions_df.prediction)
+
+  %li Q: If a prediction is negative and pctlead is negative, is the prediction accurate?
+
+  %li Q: If a prediction is negative and pctlead is negative, is the prediction effective?
+
+  %li Q: If a prediction is effective, is it also accurate?
+
+  %li Q: How to transform 1 prediction and 1 pctlead into 1 measure of effectiveness?
+
+  %li Q: How to aggregate predictions and pctlead into overall effectiveness?
+
+  %li Q: How to aggregate predictions and pctlead into overall accuracy?
+
+  %li Q: How to sum all the numbers in a Pandas-Series?
+
+  %li Q: If I have 10 predictions and 7 are True, what is my accuracy?
+
+  %li Q: Which is a better measure of a stock market predictor, Accuracy or Effectiveness?
+
+  %li
+    %hr/
+  

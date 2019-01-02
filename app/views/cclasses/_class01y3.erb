@@ -1,0 +1,122 @@
+<code class='bash'>
+dan@h79:~/py4/public/class01 $ ls -la pdr1.py
+-rw-rw-r-- 1 dan dan 774 Dec  6 19:13 pdr1.py
+dan@h79:~/py4/public/class01 $ 
+
+
+dan@h79:~/py4/public/class01 $ which python
+/home/dan/anaconda3/bin/python
+dan@h79:~/py4/public/class01 $ 
+
+
+dan@h79:~/py4/public/class01 $ python pdr1.py
+> /home/dan/py4/public/class01/pdr1.py(20)&lt;module>()
+-> start_dt  = datetime.datetime(2016,  1,  1)
+(Pdb) 
+
+
+(Pdb) help
+
+Documented commands (type help &lt;topic>):
+========================================
+EOF    c          d        h         list      q        rv       undisplay
+a      cl         debug    help      ll        quit     s        unt      
+alias  clear      disable  ignore    longlist  r        source   until    
+args   commands   display  interact  n         restart  step     up       
+b      condition  down     j         next      return   tbreak   w        
+break  cont       enable   jump      p         retval   u        whatis   
+bt     continue   exit     l         pp        run      unalias  where    
+
+Miscellaneous help topics:
+==========================
+exec  pdb
+
+
+(Pdb) list
+ 15  	import pdb
+ 16  	
+ 17  	# I should stop the script here and start the debugger:
+ 18  	pdb.set_trace()
+ 19  	
+ 20  ->	start_dt  = datetime.datetime(2016,  1,  1)
+ 21  	end_dt    = datetime.datetime(2026, 12, 31)
+ 22  	prices_df = pdr.DataReader('IBM', 'yahoo', start_dt, end_dt)
+ 23  	print(prices_df.head())
+ 24  	
+ 25  	# I should write the prices to a CSV file in /tmp:
+
+
+
+(Pdb) 
+ 26  	prices_df.to_csv('/tmp/prices_ibm.csv', float_format='%4.3f')
+ 27  	
+ 28  	# I should end the script with a simple string which might be a
+ 29  	# convenient breakpoint for the debugger:
+ 30  	
+ 31  	'bye'
+[EOF]
+
+
+
+(Pdb) n
+> /home/dan/py4/public/class01/pdr1.py(21)&lt;module>()
+-> end_dt    = datetime.datetime(2026, 12, 31)
+
+
+
+(Pdb) n
+> /home/dan/py4/public/class01/pdr1.py(22)&lt;module>()
+-> prices_df = pdr.DataReader('IBM', 'yahoo', start_dt, end_dt)
+
+
+
+(Pdb) n
+> /home/dan/py4/public/class01/pdr1.py(23)&lt;module>()
+-> print(prices_df.head())
+
+
+
+(Pdb) n
+                  Open        High         Low       Close   Adj Close  \
+Date                                                                     
+2016-01-04  135.600006  135.970001  134.240005  135.949997  126.069901   
+2016-01-05  136.759995  136.889999  134.850006  135.850006  125.977165   
+2016-01-06  134.380005  135.580002  133.619995  135.169998  125.346573   
+2016-01-07  133.699997  135.020004  132.429993  132.860001  123.204468   
+2016-01-08  133.179993  133.820007  131.320007  131.630005  122.063850   
+
+             Volume  
+Date                 
+2016-01-04  5229400  
+2016-01-05  3924800  
+2016-01-06  4310900  
+2016-01-07  7025800  
+2016-01-08  4762700  
+> /home/dan/py4/public/class01/pdr1.py(26)&lt;module>()
+-> prices_df.to_csv('/tmp/prices_ibm.csv', float_format='%4.3f')
+
+
+
+(Pdb) n
+> /home/dan/py4/public/class01/pdr1.py(31)&lt;module>()
+-> 'bye'
+
+
+(Pdb) c
+dan@h79:~/py4/public/class01 $ 
+dan@h79:~/py4/public/class01 $ head /tmp/prices_ibm.csv 
+Date,Open,High,Low,Close,Adj Close,Volume
+2016-01-04,135.600,135.970,134.240,135.950,126.070,5229400
+2016-01-05,136.760,136.890,134.850,135.850,125.977,3924800
+2016-01-06,134.380,135.580,133.620,135.170,125.347,4310900
+2016-01-07,133.700,135.020,132.430,132.860,123.204,7025800
+2016-01-08,133.180,133.820,131.320,131.630,122.064,4762700
+2016-01-11,131.810,133.820,131.760,133.230,123.548,4967000
+2016-01-12,133.650,133.780,131.130,132.900,123.242,5078700
+2016-01-13,133.500,134.280,131.100,131.170,121.637,4700100
+2016-01-14,131.930,133.790,131.220,132.910,123.251,5709600
+dan@h79:~/py4/public/class01 $ 
+dan@h79:~/py4/public/class01 $
+dan@h79:~/py4/public/class01 $
+</code>
+

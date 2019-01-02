@@ -1,0 +1,157 @@
+%h1 Class03
+%p
+  In Class03 we work with Flask.
+
+%h2#q1 Questions:
+
+%ul
+  %li What is Flask?
+  %li How to serve a static HTML file with Flask?
+  %li What is the URL-path of a static HTML file?
+  %li Why    change the URL-path of a static HTML file?
+  %li How to change the URL-path of a static HTML file?
+  %li How to serve a favicon.ico with Flask?
+  
+%h2#labpk Lab Packages in the Lab Problems:
+
+%p
+  %a(href='https://docs.python.org/3/library/os.html' target='x')
+    docs.python.org/3/library/os.html
+
+%p  
+  %a(href='http://www.google.com/search?q=python+flask' target='x')
+    google.com/search?q=python+flask
+
+%p
+  %a(href='http://docs.python-requests.org/en/master/' target='x')
+    docs.python-requests.org/en/master/
+%p
+  %a(href='https://www.crummy.com/software/BeautifulSoup/bs4/doc/' target='x')
+    www.crummy.com/software/BeautifulSoup/bs4/doc/
+  
+
+%h2#fs Lab Problems (Flask-static):
+%ul
+  %li See if you have Anaconda installed in your Dev-Env
+  %li See if you have Flask installed in your Anaconda Env
+  %li Run these shell commands:
+  %li
+    .syntax
+      %pre
+        %code
+          mkdir -p ~/flaskstatic/static
+          cd       ~/flaskstatic/static
+          echo '&lt;html>&lt;h1>Blog&lt;/h1>Python is better than R but more difficult to spell. &lt;/html>' > blog.html      
+          cd       ~/flaskstatic/
+  %li Create a Python script: ~/flaskstatic/fl10.py
+  %li Put this syntax in it:
+  %li
+    .syntax
+      %pre
+        =render 'class03fl10a'
+  %li Run the file:
+  %li
+    .syntax
+      %pre
+        %code.bash python fl10.py
+  %li That script will start a web server.
+  %li That script will lock your shell.
+  %li Leave that shell alone. DO NOT KILL THE SCRIPT.
+  %li If the web server is running, you can use a browser to study blog.html at the URL listed below:
+  %li
+    http://localhost:5000/static/blog.html
+  %li If the web server is not running, you will see an error in the browser.
+  %li Deploy flaskstatic folder to Heroku
+  %li
+    %a(href='/cclasses/class03her1') Answer
+  %li Study this repo:
+  %li
+    %a(href='https://github.com/danbikle/flask10' target='x')
+      https://github.com/danbikle/flask10
+  %li Deploy above repo to Heroku
+  %li
+    %a(href='/cclasses/class03her10') Answer
+
+%h2#fr Lab Problems (Flask-routing):
+%ul
+  %li Create a folder named "fl11" to hold a new Flask app
+  %li In fl11,   create a folder named: "static"
+
+  %li Copy a favicon.ico file into fl11/static/
+  %li
+    .syntax
+      %pre
+        %code.bash curl http://flask11.herokuapp.com/favicon.ico > ~/fl11/static/favicon.ico
+          
+  %li In static, create a file   named: "blog.html"
+  %li In fl11,   create a python script named: "fl11.py"
+  %li Put this syntax in it:
+  %li
+    .syntax
+      %pre
+        =render 'class03fl11a'
+        
+  %li Run the python script:
+  %li
+    .syntax
+      %pre
+        %code.bash python fl11.py
+  %li Use a browser to study blog.html at the URL listed below:
+  %li
+    http://localhost:5000
+  %li I followed the above steps and I saw this:
+  %li
+    %img(src='/class03/fl11.png')
+    %hr/    
+  %li Deploy fl11 to Heroku
+  %li
+    %a(href='/cclasses/class03her11') Answer
+
+  %li Study this repo:
+  %li
+    %a(href='https://github.com/danbikle/flask11' target='x')
+      https://github.com/danbikle/flask11
+  %li Deploy above repo to Heroku
+  %li
+    %a(href='/cclasses/class03her24') Answer
+
+%h2#tm Lab Problems (Flask-templates):
+%p A template is a file full of HTML syntax along with other syntax which exposes powerful features.
+%ul
+  %li Study the first three paragraphs at this URL:
+  %li
+    %a(href='http://flask.pocoo.org/docs/0.12/quickstart/#rendering-templates' target='x')
+      http://flask.pocoo.org/docs/0.12/quickstart/#rendering-templates
+  %li Usually I use templates to expose two useful features of Flask:
+  %li
+    %ul
+      %li I can access data in Python objects shared between templates
+      %li I can reuse HTML syntax between templates
+  %li Create a folder named "fl12" to hold a new Flask app
+  %li Create a simple template-app which displays the value of a Python String
+  %li
+    %a(href='/cclasses/class03tm10') Answer
+  %li Create a template of links intended to be shared and placed at the top of other templates
+  %li
+    %a(href='/cclasses/class03tm12') Answer
+  %li Demonstrate how to reuse the template of links between several templates
+  %li
+    %a(href='/cclasses/class03tm14') Answer
+  %li Demonstrate syntax which reacts to a URL path token
+  %li
+    %a(href='/cclasses/class03tm16') Answer
+  %li Demonstrate how to react to a URL parameter
+  %li
+    %a(href='/cclasses/class03tm20') Answer
+  %li Copy some Yahoo-HTML into served HTML syntax
+  %li
+    %a(href='/cclasses/class03tm26') Answer
+  %li Copy some Yahoo-HTML into served HTML syntax based on user input
+  %li
+    %a(href='/cclasses/class03tm28') Answer
+  
+  
+%h2#hw1 Homework
+%p
+  %a(href='/cclasses/class03hw') Questions
+  

@@ -1,0 +1,50 @@
+%h2 Class01 Lab Answer:
+%h2 Install ub16_201712a.ova inside VirtualBox on your laptop.
+
+%p This is easy.
+
+%p Download this file and then click on it:
+
+%p
+  %a(href='https://drive.google.com/file/d/18T7nD3joMWnzsRG-a9b96z8vWUyhFMJ0' target='x')
+    ub16_201712a.ova
+
+
+%p Be patient, maybe do this at home before class; this is a large file: 12GB
+
+%p The password for the ann account is 'a'.
+
+%p
+  The Operating System in this virtualbox is Ubuntu 16.04 which should eventually be better
+  than Ubuntu 14.04.
+
+%p This virtualbox should contain recent versions of these languages:
+%ul
+  %li Python
+  %li Ruby
+  %li Java
+  %li R
+  %li Node.js
+
+%p On my laptop I clicked on ub16_201712a.ova which brought up an import GUI.
+
+%p After I imported ub16_201712a.ova into VirtualBox on my laptop, I ran three shell commands:
+
+.syntax
+  %pre
+    %code.bash
+      sudo apt-get update
+      sudo apt-get upgrade
+      sudo shutdown -r now
+
+%p The last command rebooted the ub16_201712a instance for me.
+
+%p After 3 minutes, ub16_201712a offered me a login screen.
+
+%p At the password prompt for ann I typed in 'a'.
+
+%p A minute later I saw the Ubuntu 16 desktop screen inside a VirtualBox window.
+
+%p
+  %a(href='class01#p1')
+    Class01 Lab

@@ -1,0 +1,506 @@
+%h1 Class05
+%p
+  In Class05 we work with SQLAlchemy, Keras, Flask-RESTful, Selenium, and Heroku.
+
+%h2#uc Use Cases: Time Series Prediction Recipes
+
+%hr/
+
+%h2#r1 Recipe 1: "Machine Learning Predictions saved to Postgres"
+
+%p Main idea:
+%ul
+  %li Ask end-user for stock symbol (ticker)
+  %li Ask end-user for year count training size (default: 10)
+  %li Ask end-user for feature names
+  %li Calculate Logistic Regression Predictions
+  %li Save Predictions to Postgres DB
+  %li Query Predictions from Postgres DB
+  %li Report Accuracy of Predictions
+  %li Report Effectiveness of Predictions
+
+%p Ingredients:
+%ul
+  %li ub16_2018_0109.ova (Ubuntu 16.04 VirtualBox Instance 12 GB):
+  %li
+    %a(href='https://drive.google.com/file/d/1uqhG7LLJl76DS6Mu8BNe5hnzX5URgXVL' target='x')
+      https://drive.google.com/file/d/1uqhG7LLJl76DS6Mu8BNe5hnzX5URgXVL
+  %li Linux Account: ann (password is 'a')
+  %li Postgres Database Instance
+  %li Postgres Database Role: ann
+  %li Postgres Database: ann
+  %li
+    A list of dates and prices (ETF, 'SPY', should work): 
+    %a(href='http://tkrprice.herokuapp.com/static/CSV/usplit/SPY.csv' target='x') SPY.csv
+  
+%p Expected Result:
+%ul
+  %li Ticker Accuracy Report
+  %li Ticker Effectiveness Report
+  %li Refer to the URL below for implementation attempts:
+  %li
+    %a(href='https://github.com/danbikle/keras10/blob/master/keras10.py' target='x')
+      https://github.com/danbikle/keras10/blob/master/keras10.py
+  
+%p Steps of Script:
+%ul
+  %li
+    .syntax
+      %pre
+        =render 'class05s1'
+
+
+%p Pre-Lab Questions
+%ul
+  %li What is SQLAlchemy?
+  %li What is Keras?
+  %li What is Flask-RESTful?
+  %li What is REST?
+  %li Before I predict the stock market, how many years should I learn from?
+  %li When I predict the stock market, what exactly should I predict?
+  %li Given a series of prices, what might be predictive about them?
+  %li Given a series of dates, what might be predictive about them?
+  %li Besides dates and prices, what might be predictive of a ticker?
+  %li With a JSON API how to help end-user select an option from choices?
+  %li What is a URL-path-token?
+  %li What is a URL-parameter?
+
+%hr/
+%h2#lab1 Lab 1
+
+%ul
+  %li Ensure that you have VirtualBox installed
+  %li Download large file, ub16_2018_0109.ova (Ubuntu 16.04 VirtualBox Instance 12 GB):
+  %li
+    %a(href='https://drive.google.com/file/d/1uqhG7LLJl76DS6Mu8BNe5hnzX5URgXVL' target='x')
+      https://drive.google.com/file/d/1uqhG7LLJl76DS6Mu8BNe5hnzX5URgXVL
+  %li Import the file by clicking on it
+  %li After import, find the new appliance in your VirtulBox GUI
+  %li Start the appliance and login as ann, passwd: a
+  %li After you login, start a shell
+  %li Clone the keras10 repo with this shell syntax:
+  %li
+    .syntax
+      %pre
+        %code
+          cd ~
+          rm -rf keras10
+          git clone https://github.com/danbikle/keras10
+  %li Run the first demo with a simple shell command:
+  %li
+    .syntax
+      %pre
+        %code
+          cd ~/keras10
+          python import_keras10.py
+  %li I did the above demo in my virtualbox and I saw this:
+  %li
+    .syntax
+      %pre
+        =render 'class05d1'
+  %li Run the next demo with a simple shell command:
+  %li
+    .syntax
+      %pre
+        %code
+          cd ~/keras10
+          \./flask10.bash
+
+  %li The above shell is running a webserver. You should leave it alone.
+  %li I did the above demo in my virtualbox and I saw this:
+  %li
+    .syntax
+      %pre
+        =render 'class05d2'
+  %li The next demo requires another shell. So, start another shell.
+  %li Run the next demo with a simple shell command:
+  %li
+    .syntax
+      %pre
+        %code
+          cd ~/keras10
+          bash -x curlem.bash
+  %li I did the above demo in my virtualbox and I saw this:
+  %li
+    .syntax
+      %pre
+        =render 'class05d3'
+
+%hr/
+%h2#lab2 Lab 2 (Optional Detailed Instructions)
+
+%p The purpose of this lab is to show you how I created the above VirtualBox.
+
+%ul
+  %li These instructions assume that you have Linux training
+  %li Also you should know how to interact with a shell in a terminal
+  %li If Linux and shell are new to you, you will need some training before going further
+  %li Here are paths toward free training:
+  %li
+    %a(href='http://www.google.com/search?q=Simple+Linux+Tutorial' target='x')
+      http://www.google.com/search?q=Simple+Linux+Tutorial
+  
+  %li
+    %a(href='http://www.google.com/search?q=Simple+Shell+Tutorial' target='x')
+      http://www.google.com/search?q=Simple+Shell+Tutorial
+  
+  %li
+    %a(href='http://www.google.com/search?tbm=vid&q=Simple+Linux+Tutorial' target='x')
+      http://www.google.com/search?tbm=vid&q=Simple+Linux+Tutorial
+  
+  %li
+    %a(href='http://www.google.com/search?tbm=vid&q=Simple+Shell+Tutorial' target='x')
+      http://www.google.com/search?tbm=vid&q=Simple+Shell+Tutorial
+  
+  %li The detailed instructions below, assume that you have a laptop which can run VirtualBox
+  %li You can get VirtualBox from this URL:
+  %li
+    %a(href='https://www.virtualbox.org/wiki/Downloads' target='x')
+      https://www.virtualbox.org/wiki/Downloads
+  
+  %li After you install VirtualBox, you should install Ubuntu16 inside of VirtualBox
+  %li Ubuntu16 is at this URL:
+  %li
+    %a(href='http://releases.ubuntu.com/xenial/ubuntu-16.04.1-desktop-amd64.iso' target='x')
+      http://releases.ubuntu.com/xenial/ubuntu-16.04.1-desktop-amd64.iso
+  
+  %li If you need help installing Ubuntu16 inside of VirtualBox, the links below might be helpful
+  %li
+    %a(href='http://www.google.com/search?q=how+to+install+ubuntu16+inside+VirtualBox' target='x')
+      http://www.google.com/search?q=how+to+install+ubuntu16+inside+VirtualBox
+  
+  %li
+    %a(href='http://www.google.com/search?tbm=vid&q=how+to+install+ubuntu16+inside+VirtualBox' target='x')
+      http://www.google.com/search?tbm=vid&q=how+to+install+ubuntu16+inside+VirtualBox
+  
+  %li During installation, I tell Ubuntu that my name is ann.
+  %li If you also do that, then you can skip the next step.
+  %li After you install Ubuntu16, you need an account named 'ann'
+  %li Shell commands to install the ann account are listed below:
+  %li
+    .syntax
+      %pre
+        %code
+          sudo useradd -m -s /bin/bash -G sudo ann
+          sudo passwd ann
+
+  %li Next login as ann
+  %li Next, you should enhance your copy of Ubuntu 16:
+  %li
+    .syntax
+      %pre
+        %code
+          sudo apt-get install autoconf bison build-essential libssl-dev libyaml-dev    \
+          libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 curl          \
+          libgdbm-dev libsqlite3-dev gitk postgresql postgresql-server-dev-all aptitude \
+          libpq-dev emacs wget openssh-server libbz2-dev linux-headers-$(uname -r)
+  %li After the above command finishes, you should reboot Ubuntu16
+  %li Next you should create a role inside of Postgres named ann which has password: ann
+  %li The commands below do that:
+  %li
+    .syntax
+      %pre
+        %code
+          sudo su - postgres
+  %li Now, you should be inside the postgres Linux account:
+  %li
+    .syntax
+      %pre
+        %code
+          psql
+
+  %li Now, you should be inside the postgres Database account
+  %li
+    .syntax
+      %pre
+        %code
+          CREATE ROLE ANN WITH LOGIN SUPERUSER PASSWORD 'ann';
+          CREATE DATABASE ann;
+
+  %li Now, here is the tricky part. Many students fail here.
+  %li Exit the Database account:
+  %li
+    .syntax
+      %pre
+        %code \q
+
+  %li Exit the postgres Linux account:
+  %li
+    .syntax
+      %pre
+        %code  
+          exit
+
+  %li Ensure that you are in the ann Linux account:
+  %li
+    .syntax
+      %pre
+        %code
+          id
+
+  %li At this point you have a role inside of Postgres named ann which has password: ann
+  %li Next, run these shell commands to install Anaconda:
+  %li
+    .syntax
+      %pre
+        %code
+          id
+          cd ~ann
+          rm -f Anaconda3-4.2.0-Linux-x86_64.sh
+          rm -rf anaconda anaconda3
+          wget https://repo.continuum.io/archive/Anaconda3-4.2.0-Linux-x86_64.sh
+          bash Anaconda3-4.2.0-Linux-x86_64.sh
+          mv anaconda3/bin/curl anaconda3/bin/curl_ana
+          echo 'export PATH=${HOME}/anaconda3/bin:$PATH' >> ~/.bashrc
+          bash
+
+  %li The syntax above is designed to behave well if you run it multiple times
+  %li This means that if you run the above syntax 4 times, you should end up with Anaconda installed
+  %li Next, install some packages into Anaconda:
+  %li
+    .syntax
+      %pre
+        %code
+          conda install -c conda-forge flask-restful
+
+  %li Next, install more packages into Anaconda:
+  %li
+    .syntax
+      %pre
+        %code  
+          conda install psycopg2
+          conda install keras
+
+  %li At this point your virtualbox should be ready for the keras10 repo.
+  
+  %li So, clone the keras10 repo with this shell syntax:
+  %li
+    .syntax
+      %pre
+        %code
+          cd ~
+          rm -rf keras10
+          git clone https://github.com/danbikle/keras10
+  %li Run the first demo with a simple shell command:
+  %li
+    .syntax
+      %pre
+        %code
+          cd ~/keras10
+          python import_keras10.py
+  %li I did the above demo in my virtualbox and I saw this:
+  %li
+    .syntax
+      %pre
+        =render 'class05d1'
+  %li Run the next demo with a simple shell command:
+  %li
+    .syntax
+      %pre
+        %code
+          cd ~/keras10
+          \./flask10.bash
+
+  %li The above shell is running a webserver. You should leave it alone.
+  %li I did the above demo in my virtualbox and I saw this:
+  %li
+    .syntax
+      %pre
+        =render 'class05d2'
+  %li The next demo requires another shell. So, start another shell.
+  %li Run the next demo with a simple shell command:
+  %li
+    .syntax
+      %pre
+        %code
+          cd ~/keras10
+          bash -x curlem.bash
+  %li I did the above demo in my virtualbox and I saw this:
+  %li
+    .syntax
+      %pre
+        =render 'class05d3'
+        
+%h2#r2 Recipe 2: "Fill my price server with Yahoo prices"
+
+%p Main idea:
+%ul
+  %li I create a list of tickers which declare the prices I want
+  %li For each ticker, with chromedriver, I GET a URL like this:
+  %li https://finance.yahoo.com/quote/AAPL/history?p=AAPL
+  %li Yahoo serves a cookie to chromedriver which authenticates me
+  %li Once authenticated, I GET  a URL like this:
+  %li https://query1.finance.yahoo.com/v7/finance/download/AAPL?period1=315561600&period2=1499151600&interval=1d&events=history&crumb=jQiy69gT/lR
+  %li Yahoo serves me a CSV file which looks like this: AAPL.csv
+  %li I copy the CSV file to a folder in my price server
+  %li My price server can then serve AAPL.csv
+  
+
+%h2#r3 Recipe 3: "Get stock prices from my price server"
+
+%p Main idea:
+%ul
+  %li A Machine Learning script needs stock prices
+  %li The script supplies a ticker value to appropriate GET request
+  %li My price server responds with a CSV file full of prices
+  %li I deploy the server to Heroku so you can use it
+  
+
+%hr/
+%h2#lab3 Lab 3 (Implement Recipe 2):
+
+%ul
+  %li Ensure that you are running this VirtualBox instance:
+  %li ub16_2018_0109.ova (Ubuntu 16.04 VirtualBox Instance 12 GB):
+  %li
+    %a(href='https://drive.google.com/file/d/1uqhG7LLJl76DS6Mu8BNe5hnzX5URgXVL' target='x')
+      https://drive.google.com/file/d/1uqhG7LLJl76DS6Mu8BNe5hnzX5URgXVL
+  %li Start the appliance and login as ann, passwd: a
+  %li After you login, start a shell
+  %li Clone the yprice repo with this shell syntax:
+  %li
+    .syntax
+      %pre
+        %code
+          cd ~
+          rm -rf yprice
+          git clone https://github.com/danbikle/yprice
+  %li Run the first demo with a simple shell command:
+  %li
+    .syntax
+      %pre
+        %code
+          cd ~/yprice
+          conda install selenium -c conda-forge
+          bin/top10.bash
+  %li I followed the above steps and captured some screen-shots:
+  %li
+    %img(src='/class05/yp15-10-51.png')
+    %hr/
+  %li
+    %img(src='/class05/yp15-11-25.png')
+    %hr/
+  %li
+    %img(src='/class05/yp15-11-52.png')
+    %hr/
+  %li
+    %img(src='/class05/yp15-13-12.png')
+    %hr/
+  %li
+    %img(src='/class05/yp15-14-14.png')
+    %hr/
+  %li
+    %img(src='/class05/yp15-16-17.png')
+    %hr/
+  %li
+    %img(src='/class05/yp15-17-16.png')
+    %hr/
+  %li
+    %img(src='/class05/yp15-17-59.png')
+    %hr/
+  %li
+    %img(src='/class05/yp15-18-34.png')
+    %hr/
+  %li
+    %img(src='/class05/yp15-19-39.png')
+    %hr/
+  %li
+    %img(src='/class05/yp15-21-37.png')
+    %hr/
+  %li
+    %img(src='/class05/yp15-23-21.png')
+    %hr/
+
+
+%hr/
+%h2#lab4 Lab 4 (Implement Recipe 3):
+
+%ul
+  %li Ensure that you are running this VirtualBox instance:
+  %li ub16_2018_0109.ova (Ubuntu 16.04 VirtualBox Instance 12 GB):
+  %li
+    %a(href='https://drive.google.com/file/d/1uqhG7LLJl76DS6Mu8BNe5hnzX5URgXVL' target='x')
+      https://drive.google.com/file/d/1uqhG7LLJl76DS6Mu8BNe5hnzX5URgXVL
+  %li Start the appliance and login as ann, passwd: a
+  %li After you login, start a shell
+  %li Clone the yprice repo with this shell syntax:
+  %li
+    .syntax
+      %pre
+        %code
+          cd ~
+          rm -rf yprice
+          git clone https://github.com/danbikle/yprice
+  %li Start the price server:
+  %li
+    .syntax
+      %pre
+        %code
+          cd ~/yprice
+          \./fflask.bash
+  %li The above command should lock your shell prompt.
+  %li Start another shell and test the price server with a simple shell command:
+  %li
+    .syntax
+      %pre
+        %code
+          \/usr/bin/curl localhost:5000/static/CSV/history/AAPL.csv > /tmp/AAPL.csv
+          head /tmp/AAPL.csv
+          
+  %li I followed the above steps on my host and collected output:
+  %li
+    .syntax
+      %pre
+        =render 'class05yp10'
+  %li After I saw the above output, my shell was locked so I used another shell to test:
+  %li
+    .syntax
+      %pre
+        =render 'class05yp11'
+  %li After the test I noticed a new line of output from the server:
+  %li
+    .syntax
+      %pre
+        =render 'class05yp12'
+  %li To deploy the server to Heroku I need to create an account:
+  %li
+    %a(href='https://signup.heroku.com/login' target='x')
+      https://signup.heroku.com/login
+  %li Next, I login:
+  %li
+    .syntax
+      %pre
+        %code
+          cd ~/yprice
+          heroku auth:login
+
+  %li Then, I create the app and deploy it to heroku.com
+  %li
+    .syntax
+      %pre
+        %code
+          heroku create yprice
+          git commit -am hello-heroku
+          git push heroku master
+
+  %li I followed the above steps and captured some output:
+  %li
+    .syntax
+      %pre
+        =render 'class05yp20'
+
+  %li Next, I tested the server:
+  %li
+    .syntax
+      %pre
+        %code
+          \/usr/bin/curl https://yprice.herokuapp.com/static/CSV/history/AMZN.csv > /tmp/AMZN.csv
+          head /tmp/AMZN.csv
+
+  %li I captured some output:
+  %li
+    .syntax
+      %pre
+        =render 'class05yp21'
+
+
