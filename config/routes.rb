@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'blog/index'
   get 'about/index'
   get  'home/index'
-  root 'home#index'
+  root 'about#index'
   get 'about'   => 'about#index'
   get 'blog'    => 'blog#index'
   get 'contact' => 'contact#index'
