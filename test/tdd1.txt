@@ -76,5 +76,7 @@ I should copy over home, about, contact from py4
 
 I should study the links in syntax examples
 
+I should replace old ref to Anaconda with https://repo.continuum.io/archive/Anaconda3-5.0.1-Linux-x86_64.sh
+
 
 
