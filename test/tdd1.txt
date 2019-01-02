@@ -56,7 +56,14 @@ I should add a domain to py44.herokuapp.com via heroku ui
 
   python4.us should redirect to https://www.python4.us
 
+I should copy haml,erb files from py4.us
+
 I should sub py4.us with python4.us in all haml,erb files
 
 I should install a favicon.ico file
+
+I should copy various files from py4/public/
+
+I should study the div elements in layouts files and maybe remove some no longer needed for bootstrap styling.
+
 
