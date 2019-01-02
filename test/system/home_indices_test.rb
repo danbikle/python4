@@ -17,7 +17,7 @@ class HomeIndicesTest < ApplicationSystemTestCase
     visit '/'
     sleep 1
     
-    assert_selector "h1", text: "Home#index"
+    assert_selector "h1", text: "This Is About Python"
   end
 end
 
