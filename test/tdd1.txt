@@ -45,8 +45,14 @@ I should borrow styling from rails4.us
 
 I should not use the bootstrap css styling from py4.us
 
+I should have a row of links across the top
+
 I should manage python4.us to point it at py44.herokuapp.com
 
-I should see if I can point it at an ip add
+I should add a domain to py44.herokuapp.com via heroku ui
 
+  cname for www.python4.us should be:
+  immense-larkspur-ia5k6o45x3oijnk2hda4q03u.herokudns.com
+
+  python4.us should redirect to https://www.python4.us
 
