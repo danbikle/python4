@@ -37,6 +37,7 @@ git clone https://github.com/rbenv/ruby-build.git .rbenv/plugins/ruby-build
 bash
 rbenv install 2.5.3
 rbenv global  2.5.3
+bash
 gem install rails -v 5.2.2
 * I cloned the python4 repo:
 ```
