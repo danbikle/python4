@@ -38,3 +38,22 @@ bash
 rbenv install 2.5.3
 rbenv global  2.5.3
 gem install rails -v 5.2.2
+* I cloned the python4 repo:
+```
+cd ~python4
+git clone https://github.com/danbikle/python4
+```
+* I called bundler:
+```
+cd ~python4/python4
+bundle
+```
+* I started the local webserver with a simple shell script:
+```
+~python4/python4/script/railss.bash
+```
+* I loaded the home page from the webserver into my browser:
+```
+localhost:9124
+```
+
