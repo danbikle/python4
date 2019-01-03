@@ -14,6 +14,22 @@ class HomeIndicesTest < ApplicationSystemTestCase
     sleep 1
     visit '/cclasses/class02'
     sleep 1
+    visit '/cclasses/class03'
+    sleep 1
+    visit '/cclasses/class04'
+    sleep 1
+    visit '/cclasses/class05'
+    sleep 1
+    visit '/cclasses/class06'
+    sleep 1
+    visit '/cclasses/class07'
+    sleep 1
+    visit '/cclasses/class08'
+    sleep 1
+    visit '/cclasses/class09'
+    sleep 1
+    visit '/cclasses/class10'
+    sleep 1
     visit '/'
     sleep 3
     
