@@ -62,6 +62,8 @@ I should sub py4.us with python4.us in all haml,erb files
 
 I should sub py4us gh string with python4 in all files
 
+I should add https link to top row
+
 I should install a favicon.ico file
 
 I should copy various files from py4/public/
