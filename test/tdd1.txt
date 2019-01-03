@@ -82,5 +82,5 @@ I should study the links in syntax examples page
 
 I should replace old ref to Anaconda with https://repo.continuum.io/archive/Anaconda3-5.3.1-Linux-x86_64.sh
 
-
+I should add deployment instructions to README.md
 
