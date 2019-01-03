@@ -38,6 +38,7 @@ bash
 rbenv install 2.5.3
 rbenv global  2.5.3
 bash
+gem update --system
 gem install rails -v 5.2.2
 * I cloned the python4 repo:
 ```
