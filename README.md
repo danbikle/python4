@@ -28,8 +28,8 @@ sudo passwd python4
 * I used shell commands to install Rails:
 ```
 cd ~python4
-wget python4.herokuapp.com/.gitconfig
-wget python4.herokuapp.com/.gemrc
+wget py44.herokuapp.com/.gitconfig
+wget py44.herokuapp.com/.gemrc
 echo 'export PATH="${HOME}/.rbenv/bin:$PATH"' >> ~python4/.bashrc
 echo 'eval "$(rbenv init -)"' >> ~python4/.bashrc
 git clone https://github.com/rbenv/rbenv.git      .rbenv
