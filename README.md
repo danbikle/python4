@@ -2,7 +2,7 @@
 
 This repo contains Rails software for the site: python4.us
 
-The deployed site is available from two URLs:
+Site content is served from two URLs:
 
 * http://www.python4.us
 * https://py44.herokuapp.com
